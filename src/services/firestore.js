@@ -28,3 +28,14 @@ export const store = (url) => {
 
     return ref;
 };
+
+/**
+ * gets item from db
+ *
+ * @param collection
+ * @param id
+ * @returns {Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>>}
+ */
+export const get = (collection, id) => {
+    return db.collection(collection).doc(id).get();
+}

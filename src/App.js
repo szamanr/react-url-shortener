@@ -1,7 +1,7 @@
 import {Route} from "react-router-dom";
 import './App.css';
 import Shortener from "./Shortener";
-import Redirector from "./Redirector";
+import Resolver from "./Resolver";
 
 function App() {
     return (
@@ -10,8 +10,7 @@ function App() {
                 <Shortener/>
             </Route>
 
-            <Route path="/:slug">
-                <Redirector/>
+            <Route path="/:slug" component={Resolver}>
             </Route>
 
         </div>
