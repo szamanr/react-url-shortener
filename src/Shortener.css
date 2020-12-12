@@ -1,0 +1,21 @@
+.shortener-form, .short-url {
+    display: flex;
+    grid-template-columns: repeat(12, 1fr);
+}
+.Shortener input {
+    height: 50px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    padding: 0 20px 0 20px;
+    flex: auto;
+
+    overflow: visible;
+}
+
+.Shortener button {
+    height: 50px;
+    width: 20%;
+
+    border-style: none;
+    border-radius: 0 5px 5px 0;
+}

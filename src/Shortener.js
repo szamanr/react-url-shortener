@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import * as ShortenerService from "./services/shortener";
+import "./Shortener.css";
 
 function Shortener() {
     const [url, setUrl] = useState('');
@@ -39,17 +40,16 @@ function Shortener() {
         }, 1000)
     }
 
-    const shortenerForm = (
+    const shortenerForm = ! short ? (
         <form className="shortener-form" onSubmit={handleSubmit}>
             <input name="url" value={url} onChange={handleChange}
                    type="text" placeholder="Paste a long url to shorten it"/>
             <button type="submit">shorten</button>
         </form>
-    );
+    ) : null;
 
     const shortUrlDisplay = short ? (
         <div className="short-url">
-            <p>Short url: </p>
             <input value={short} readOnly/>
             <button onClick={copyToClipboard}>copy</button>
         </div>
@@ -60,7 +60,7 @@ function Shortener() {
     ) : null;
 
     return (
-        <div className="shortener">
+        <div className="Shortener">
             <h1>URL Shortener</h1>
             {shortenerForm}
             {shortUrlDisplay}

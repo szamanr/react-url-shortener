@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import * as ResolverService from "./services/resolver";
+import {Link} from "react-router-dom";
 
 function Resolver(props) {
     const slug = props.match.params.slug;
@@ -18,7 +19,10 @@ function Resolver(props) {
     }, [slug]);
 
     return (
-        <div className="resolver">
+        <div className="Resolver">
+            <h1>
+                <Link to="/">URL Shortener</Link>
+            </h1>
             <p>{status}</p>
         </div>
     );

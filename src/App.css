@@ -1,38 +1,39 @@
+:root {
+    --base-color: #e8e6e3;
+    --lighter-color: #e8e3e3;
+    --base-background: #181a1b;
+    --lighter-background: #313638;
+
+    --brand-color: #005dc1;
+}
+
 .App {
-  text-align: center;
+    display: grid;
+    grid-template: 1fr 2fr 1fr / 1fr 10fr 1fr;
+    text-align: center;
+    height: 100vh;
+
+    color: var(--base-color);
+    background-color: var(--base-background);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+a {
+    text-decoration: none;
+    color: var(--base-color);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button {
+    cursor: pointer;
+    color: var(--base-color);
+    background-color: var(--brand-color);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+input {
+    color: var(--base-color);
+    background-color: var(--lighter-background);
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Shortener, .Resolver {
+    grid-column: 2;
+    grid-row: 2;
 }

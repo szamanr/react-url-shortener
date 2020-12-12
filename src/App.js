@@ -12,7 +12,6 @@ function App() {
 
             <Route path="/:slug" component={Resolver}>
             </Route>
-
         </div>
     );
 }
