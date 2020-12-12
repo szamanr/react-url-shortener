@@ -1,3 +1,6 @@
+import * as FirestoreService from "./firestore";
+
 export function shorten(url) {
-    return url;
+    const ref = FirestoreService.store(url);
+    return ref.id;
 }

@@ -13,7 +13,7 @@ function Shortener() {
         console.debug(`shortening ${url}.`);
 
         const shortUrl = ShortenerService.shorten(url);
-        console.debug(`short url: ${shortUrl}.`);
+        console.debug(`short url: http://localhost:3000/${shortUrl}.`);
     }
 
     return (
