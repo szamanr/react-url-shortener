@@ -2,28 +2,69 @@ import React, {useState} from "react";
 import * as ShortenerService from "./services/shortener";
 
 function Shortener() {
-    const [url, setUrl] = useState(null);
+    const [url, setUrl] = useState('');
+    const [short, setShort] = useState('');
+    const [textCopiedFlag, setTextCopiedFlag] = useState(false);
 
-    function handleChange(e) {
+    const handleChange = (e) => {
         setUrl(e.target.value);
     }
 
+    /**
+     * calls the shortener service when form submitted
+     *
+     * @param e
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
         console.debug(`shortening ${url}.`);
 
-        const shortUrl = ShortenerService.shorten(url);
-        console.debug(`short url: http://localhost:3000/${shortUrl}.`);
+        const slug = ShortenerService.shorten(url);
+        const shortUrl = 'http://localhost:3000/' + slug;
+        console.debug(`short url: ${shortUrl}.`);
+
+        setShort(shortUrl);
     }
 
+    /**
+     * writes the current short url to clipboard
+     */
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(short);
+
+        // flash a confirmation text for 1 second
+        setTextCopiedFlag(true);
+        setTimeout(() => {
+            setTextCopiedFlag(false);
+        }, 1000)
+    }
+
+    const shortenerForm = (
+        <form className="shortener-form" onSubmit={handleSubmit}>
+            <input name="url" value={url} onChange={handleChange}
+                   type="text" placeholder="Paste a long url to shorten it"/>
+            <button type="submit">shorten</button>
+        </form>
+    );
+
+    const shortUrlDisplay = short ? (
+        <div className="short-url">
+            <p>Short url: </p>
+            <input value={short} readOnly/>
+            <button onClick={copyToClipboard}>copy</button>
+        </div>
+    ) : null;
+
+    const copyConfirmationDialog = textCopiedFlag ? (
+        <p className="copy-confirmation">Copied to clipboard!</p>
+    ) : null;
+
     return (
-        <div>
+        <div className="shortener">
             <h1>URL Shortener</h1>
-            <form onSubmit={handleSubmit}>
-                <input name="url" value={url} onChange={handleChange}
-                       type="text" placeholder="Paste a long url to shorten it"/>
-                <button type="submit">shorten</button>
-            </form>
+            {shortenerForm}
+            {shortUrlDisplay}
+            {copyConfirmationDialog}
         </div>
     );
 }
