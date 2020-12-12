@@ -9,22 +9,26 @@ const firebaseConfig = {
     appId: "1:392712746966:web:7c9ae521f3afe859521677"
 };
 
-firebase.initializeApp(firebaseConfig);
+// initialise app or use existing one
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+} else {
+    firebase.app();
+}
 
 const db = firebase.firestore();
 
 /**
- * stores a url
+ * stores an item in db
  *
  * @returns {*}
- * @param url
+ * @param collection
+ * @param item
  */
-export const store = (url) => {
-    const ref = db.collection('urls').doc();
+export const store = (collection, item) => {
+    const ref = db.collection(collection).doc();
 
-    ref.set({
-        original: url
-    });
+    ref.set(item);
 
     return ref;
 };

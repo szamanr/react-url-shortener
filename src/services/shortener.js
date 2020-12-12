@@ -7,6 +7,9 @@ import * as FirestoreService from "./firestore";
  * @returns string
  */
 export function shorten(url) {
-    const ref = FirestoreService.store(url);
+    const item = {
+        original: url
+    };
+    const ref = FirestoreService.store('urls', item);
     return ref.id;
 }
