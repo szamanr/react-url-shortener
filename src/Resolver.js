@@ -1,25 +1,27 @@
-import React, {useEffect} from "react";
-import {withRouter} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import * as ResolverService from "./services/resolver";
 
 function Resolver(props) {
     const slug = props.match.params.slug;
+    const [status, setStatus] = useState('Redirecting...');
 
     // look up url
     useEffect(() => {
-        // TODO: error handling
         ResolverService.resolve(slug, (originalUrl) => {
             console.debug(`original url: ${originalUrl}.`)
 
             window.location.replace(originalUrl);
-        })
-    });
+        }, (error) => {
+            setStatus('Incorrect URL.')
+            console.error(error);
+        });
+    }, [slug]);
 
     return (
-        <div>
-            <p>Redirecting...</p>
+        <div className="resolver">
+            <p>{status}</p>
         </div>
     );
 }
 
-export default withRouter(Resolver);
+export default Resolver;

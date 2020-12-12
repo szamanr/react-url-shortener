@@ -4,13 +4,19 @@ import * as FirestoreService from "./firestore";
  * resolves slug to original url
  *
  * @param slug
- * @param observer
+ * @param resolve
+ * @param reject
  */
-export const resolve = (slug, observer) => {
+export const resolve = (slug, resolve, reject) => {
     FirestoreService.get('urls', slug).then((snapshot) => {
-        observer(snapshot.get('original'));
+        if (!snapshot.exists) {
+            reject(`URL ${slug} not found in db.`);
+            return;
+        }
+
+        resolve(snapshot.get('original'));
     }).catch((error) => {
-        console.error(error);
+        reject(error);
     });
 }
 
