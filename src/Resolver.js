@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import * as ResolverService from "./services/resolver";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
-function Resolver(props) {
-    const slug = props.match.params.slug;
+function Resolver() {
+    const { slug } = useParams();
     const [status, setStatus] = useState('Redirecting...');
 
     // look up url
