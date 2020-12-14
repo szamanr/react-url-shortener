@@ -5,7 +5,7 @@ import "./Shortener.css";
 function Shortener() {
     const [url, setUrl] = useState('');
     const [short, setShort] = useState('');
-    const [textCopiedFlag, setTextCopiedFlag] = useState(false);
+    const [notificationText, setNotificationText] = useState(null);
 
     const handleChange = (e) => {
         setUrl(e.target.value);
@@ -18,6 +18,12 @@ function Shortener() {
      */
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if(! url) {
+            flashNotificationMessage('Please provide a URL!');
+            return;
+        }
+
         console.debug(`shortening ${url}.`);
 
         const slug = ShortenerService.shorten(url);
@@ -28,16 +34,24 @@ function Shortener() {
     }
 
     /**
+     * displays a short notification message to user for validation or confirmation messages.
+     *
+     * @param text
+     */
+    function flashNotificationMessage(text) {
+        setNotificationText(text);
+        setTimeout(() => {
+            setNotificationText(null);
+        }, 1000)
+    }
+
+    /**
      * writes the current short url to clipboard
      */
     const copyToClipboard = () => {
         navigator.clipboard.writeText(short);
 
-        // flash a confirmation text for 1 second
-        setTextCopiedFlag(true);
-        setTimeout(() => {
-            setTextCopiedFlag(false);
-        }, 1000)
+        flashNotificationMessage('Copied to clipboard!');
     }
 
     const shortenerForm = ! short ? (
@@ -55,8 +69,8 @@ function Shortener() {
         </div>
     ) : null;
 
-    const copyConfirmationDialog = textCopiedFlag ? (
-        <p className="copy-confirmation">Copied to clipboard!</p>
+    const notificationBox = notificationText ? (
+        <p className="copy-confirmation">{notificationText}</p>
     ) : null;
 
     return (
@@ -64,7 +78,7 @@ function Shortener() {
             <h1>URL Shortener</h1>
             {shortenerForm}
             {shortUrlDisplay}
-            {copyConfirmationDialog}
+            {notificationBox}
         </div>
     );
 }
