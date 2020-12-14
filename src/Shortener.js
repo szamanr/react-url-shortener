@@ -65,7 +65,7 @@ function Shortener() {
     const shortUrlDisplay = short ? (
         <div className="short-url">
             <input value={short} readOnly/>
-            <button onClick={copyToClipboard}>copy</button>
+            <button className="copy-button" onClick={copyToClipboard}>copy</button>
         </div>
     ) : null;
 
