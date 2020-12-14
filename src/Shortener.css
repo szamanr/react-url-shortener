@@ -1,6 +1,5 @@
 .shortener-form, .short-url {
     display: flex;
-    grid-template-columns: repeat(12, 1fr);
 }
 
 .Shortener input {
